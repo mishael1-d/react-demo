@@ -10,36 +10,18 @@ export const NewData = [
 ];
 
 export const NewData2 = [
-  [
-    {
-      label: "Hindi",
-      response: "12",
-    },
-    {
-      label: "Math",
-      response: "76",
-    },
-  ],
-  [
-    {
-      label: "English",
-      response: "82",
-    },
-    {
-      label: "Physics",
-      response: "76",
-    },
-  ],
-  [
-    {
-      label: "Yoruba",
-      response: "82",
-    },
-    {
-      label: "Chem",
-      response: "76",
-    },
-  ],
+  {
+    label: ["Yes", "No"],
+    data: [59, 32],
+  },
+  {
+    label: ["Yes", "No"],
+    data: [21, 90],
+  },
+  {
+    label: ["Yes", "No"],
+    data: [5, 15],
+  },
 ];
 
 // export const Data = [

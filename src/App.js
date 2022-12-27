@@ -12,11 +12,11 @@ import { useEffect, useState } from "react";
 Chart.register(ChartDataLabels);
 
 function App() {
-  const [label, setLabel] = useState([]);
-  const [dataset, setDataset] = useState([]);
+  // const [label, setLabel] = useState([]);
+  // const [dataset, setDataset] = useState([]);
 
-  const [label1, setLabel1] = useState([]);
-  const [dataset1, setDataset1] = useState([]);
+  // const [label1, setLabel1] = useState([]);
+  // const [dataset1, setDataset1] = useState([]);
   // useEffect(() => {
   //   const lab = [];
   //   const data = [];
@@ -33,83 +33,90 @@ function App() {
   //   }
   // }, []);
 
-  useEffect(() => {
-    const sSubject = Array(NewData2.length).fill(Array(2));
-    const sMarks = Array(NewData2.length).fill(Array(2));
-    // console.log(sSubject);
-    // console.log(sSubject[1]);
-    // console.log(sSubject[2]);
-    for (let index = 0; index < NewData2.length; index++) {
-      // const getData1 = () => {
-      var responses = NewData2[index];
-      // console.log(sSubject[index]);
-      for (let i = 0; i < responses.length; i++) {
-        var eachResponse = responses[i];
-        console.log(eachResponse);
-        // console.log(sSubject[index]);
+  // useEffect(() => {
+  //   const sSubject = Array(NewData2.length).fill(Array(2));
+  //   const sMarks = Array(NewData2.length).fill(Array(2));
+  //   // console.log(sSubject);
+  //   // console.log(sSubject[1]);
+  //   // console.log(sSubject[2]);
+  //   for (let index = 0; index < NewData2.length; index++) {
+  //     // const getData1 = () => {
+  //     var responses = NewData2[index];
+  //     // console.log(sSubject[index]);
+  //     for (let i = 0; i < responses.length; i++) {
+  //       var eachResponse = responses[i];
+  //       console.log(eachResponse);
+  //       // console.log(sSubject[index]);
 
-        sSubject[index] = eachResponse;
-        // sMarks[index] = eachResponse;
-        // console.log("sSubject ith index", sSubject[i]);
-        // console.log(sSubject[index]);
-      }
+  //       sSubject[index] = eachResponse;
+  //       // sMarks[index] = eachResponse;
+  //       // console.log("sSubject ith index", sSubject[i]);
+  //       // console.log(sSubject[index]);
+  //     }
 
-      console.log(sSubject[index]);
-      // console.log(sMarks);
+  //     console.log(sSubject[index]);
+  //     // console.log(sMarks);
 
-      setLabel1(sSubject);
-      setDataset1(sMarks);
-    }
+  //     setLabel1(sSubject);
+  //     setDataset1(sMarks);
+  //   }
 
-    // getData1();
-    // }
-    //console.log(resData);
-  }, []);
+  //   // getData1();
+  //   // }
+  //   //console.log(resData);
+  // }, []);
 
-  useEffect(() => {
-    const sSubject = [];
-    const sMarks = [];
-    const getData = () => {
-      for (let i = 0; i < NewData.length; i++) {
-        sSubject.push(NewData[i].label);
-        sMarks.push(parseInt(NewData[i].response));
-      }
-      // console.log(sSubject);
-      setLabel(sSubject);
-      setDataset(sMarks);
-    };
+  // useEffect(() => {
+  //   const sSubject = [];
+  //   const sMarks = [];
+  //   const getData = () => {
+  //     for (let i = 0; i < NewData.length; i++) {
+  //       sSubject.push(NewData[i].label);
+  //       sMarks.push(parseInt(NewData[i].response));
+  //     }
+  //     // console.log(sSubject);
+  //     setLabel(sSubject);
+  //     setDataset(sMarks);
+  //   };
 
-    getData();
-    //console.log(resData);
-  }, []);
+  //   getData();
+  //   //console.log(resData);
+  // }, []);
 
   const data = {
-    labels: label.map((d) => d),
+    labels: NewData2.map((d) => d.label),
     datasets: [
       {
         label: "Audit responses",
-        data: dataset.map((d) => d),
+        data: NewData2.map((d) => d.data),
         backgroundColor: ["#4b77a9", "#5f255f"],
         hoverOffset: 4,
       },
     ],
   };
 
-  const data2 = {
-    labels: label1.map((d) => d),
-    datasets: [
-      {
-        label: "Audit responses",
-        data: dataset1.map((d) => d),
-        backgroundColor: ["#4b77a9", "#5f255f"],
-        hoverOffset: 4,
-      },
-    ],
-  };
+  // const data2 = {
+  //   labels: label1.map((d) => d),
+  //   datasets: [
+  //     {
+  //       label: "Audit responses",
+  //       data: dataset1.map((d) => d),
+  //       backgroundColor: ["#4b77a9", "#5f255f"],
+  //       hoverOffset: 4,
+  //     },
+  //   ],
+  // };
 
   var options = {
+    legend: {
+      display: false,
+    },
     tooltips: {
-      enabled: false,
+      callbacks: {
+        label: function (tooltipItem) {
+          return tooltipItem.yLabel;
+        },
+      },
     },
     plugins: {
       datalabels: {
@@ -128,7 +135,25 @@ function App() {
   };
   return (
     <div className="App">
-      <Pie type="pie" data={data} options={options} />
+      {NewData2.map((data) => {
+        return (
+          <Pie
+            type="pie"
+            data={{
+              labels: data.label,
+              datasets: [
+                {
+                  label: "Audit responses",
+                  data: data.data,
+                  backgroundColor: ["#4b77a9", "#5f255f"],
+                  hoverOffset: 4,
+                },
+              ],
+            }}
+            options={options}
+          />
+        );
+      })}
       {/* <Pie type="pie" data={data2} options={options} />
       <Pie type="pie" data={data3} options={options} /> */}
     </div>
